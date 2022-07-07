@@ -1,6 +1,5 @@
 package sawant.mihir.consumingrestopenfeign.controller;
 
-import feign.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -9,18 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import sawant.mihir.consumingrestopenfeign.model.Member;
 import sawant.mihir.consumingrestopenfeign.model.ProblemSetStatus;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class CodeforcesApiController {
 
+    private static final String REQ_PARAM = "?count=";
+
     @Value("${service.url}")
-    private String url;
+    private String baseUrl;
+
+
     private final RestTemplate restTemplate;
     public CodeforcesApiController(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
@@ -28,7 +28,8 @@ public class CodeforcesApiController {
 
     @GetMapping("/status")
     public ResponseEntity<?> recentProblemStatus(@RequestParam int count) {
-        String uri = url + "?count=" +count;
+        String uri = baseUrl + REQ_PARAM +count;
+
 
         try{
             ProblemSetStatus problemStatus = restTemplate

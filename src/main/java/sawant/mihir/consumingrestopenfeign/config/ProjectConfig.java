@@ -1,4 +1,4 @@
-package sawant.mihir.consumingrestopenfeign.service;
+package sawant.mihir.consumingrestopenfeign.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

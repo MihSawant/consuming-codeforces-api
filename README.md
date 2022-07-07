@@ -1,4 +1,4 @@
-# consuming-rest-open-feign
+# consuming-data-rest-template
 
 This project uses the Codeforces API: https://codeforces.com/apiHelp/methods#problemset.recentStatus
 Codeforces is a Competitive Programming Platform and by using the API provided, we can access some
@@ -9,16 +9,13 @@ so according to the api we have to issue a GET request to the  https://codeforce
 URI and there is a request-param to be added with name count, which has to be assigned value upto 1000, so it
 will get us that many submissions entries.
 
-To Consume the data I am using the **Spring Open-Feign**, which is great for consuming rest-data as you can see
-that i have to model the data first that will be the POJO representation of JSON data,
-which can be done via using Java Records.
-Next I have a Rest-Controller which has a method action mapped with ("/status") path and then
-its simple, In the proxy I have a contract in which i only have to specify the base-uri and unique name to the client.
-Then as it is an interface, so only define the method and implementation will be provided by the Open-Feign. So in this 
-case i only specify the resource path which using GetMapping and here just specify the Query-Param which is count and
-then the return type is specified ProblemStatus which is our Model. So it will try to decode it into our POJO. 
-_And remember that the fields should be same as that of the JSON response object, unless it will be assigned to null._ The
-JSON response fields and Java object fields should match exactly.
+Here I am using the most common method which is using **Rest Template** class which provides simple method
+_exchange()_ to query the uri and pass the http verb and HttpEntity in case you have any request headers and
+to pass the body, at last the response object type. It will return the ResponseEntity<T> so we can get the data using _#getBody()_
+method.
+     
+    Unfortunately, The RestTemplate class is marked for maintainance in Spring Framework 5 and will
+    be deprecated in future releases. As it is not suitable in some cases like handle Async data
 
 To run the project, use command: **_mvn spring-boot:run_**
 We can also use the mvn wraper (.mvnw.cmd) 
