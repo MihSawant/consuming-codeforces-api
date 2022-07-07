@@ -1,4 +1,4 @@
-# consuming-rest-open-feign
+# consuming-data-web-client
 
 This project uses the Codeforces API: https://codeforces.com/apiHelp/methods#problemset.recentStatus
 Codeforces is a Competitive Programming Platform and by using the API provided, we can access some
@@ -9,16 +9,13 @@ so according to the api we have to issue a GET request to the  https://codeforce
 URI and there is a request-param to be added with name count, which has to be assigned value upto 1000, so it
 will get us that many submissions entries.
 
-To Consume the data I am using the **Spring Open-Feign**, which is great for consuming rest-data as you can see
-that i have to model the data first that will be the POJO representation of JSON data,
-which can be done via using Java Records.
-Next I have a Rest-Controller which has a method action mapped with ("/status") path and then
-its simple, In the proxy I have a contract in which i only have to specify the base-uri and unique name to the client.
-Then as it is an interface, so only define the method and implementation will be provided by the Open-Feign. So in this 
-case i only specify the resource path which using GetMapping and here just specify the Query-Param which is count and
-then the return type is specified ProblemStatus which is our Model. So it will try to decode it into our POJO. 
-_And remember that the fields should be same as that of the JSON response object, unless it will be assigned to null._ The
-JSON response fields and Java object fields should match exactly.
+Consuming data with Web Client, which is ok for example purposes, like this, but it should be used
+when building **reactive-apps** to get the full benefit out of it.
+It is similar to that of Rest-Template, here we are just using the WebClient's get() method to issue
+an _HTTP GET_ request to the specified URI and then _retrieve()_ the data and we get the data and convert
+it to **Mono<T>** which is a publisher of the data, so Spring Boot will be subscribing to the Mono
+data which is published, and we get Http Mono response when we query the endpoint.
+
 
 To run the project, use command: **_mvn spring-boot:run_**
 We can also use the mvn wraper (.mvnw.cmd) 
